@@ -1,10 +1,19 @@
 'use strict';
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector('.question').textContent = secretNumber;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+// document.querySelector('.question').textContent = secretNumber;
 
 let score = 20;
 document.querySelector('.score').textContent = score;
+
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  document.querySelector('.number-input').value = '';
+  document.querySelector('.score').textContent = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector('.number-input').removeAttribute('disabled', true);
+  // document.querySelector('.question').textContent = secretNumber;
+});
 
 document.querySelector('.check').addEventListener('click', function (event) {
   const guessNumber = Number(document.querySelector('.number-input').value);
@@ -14,6 +23,8 @@ document.querySelector('.check').addEventListener('click', function (event) {
   } else if (guessNumber === secretNumber) {
     document.querySelector('.guess-message').textContent = 'Правильно!';
     document.querySelector('body').style.backgroundColor = 'green';
+    document.querySelector('.question').textContent = secretNumber;
+    document.querySelector('.number-input').setAttribute('disabled', true);
   } else if (guessNumber > secretNumber) {
     if (score > 1) {
       document.querySelector('.guess-message').textContent = 'Число меньше!';
