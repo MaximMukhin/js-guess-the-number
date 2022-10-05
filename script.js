@@ -1,10 +1,12 @@
 'use strict';
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-// document.querySelector('.question').textContent = secretNumber;
+//document.querySelector('.question').textContent = secretNumber;
 
 let score = 20;
 document.querySelector('.score').textContent = score;
+let highScore = 0;
+document.querySelector('.highscore').textContent = highScore;
 
 document.querySelector('.again').addEventListener('click', function () {
   score = 20;
@@ -12,7 +14,9 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.score').textContent = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
   document.querySelector('.number-input').removeAttribute('disabled', true);
-  // document.querySelector('.question').textContent = secretNumber;
+  document.querySelector('body').style.backgroundColor = 'black';
+  document.querySelector('.question').textContent = '???';
+  document.querySelector('.highscore').textContent = highScore;
 });
 
 document.querySelector('.check').addEventListener('click', function (event) {
@@ -25,6 +29,14 @@ document.querySelector('.check').addEventListener('click', function (event) {
     document.querySelector('body').style.backgroundColor = 'green';
     document.querySelector('.question').textContent = secretNumber;
     document.querySelector('.number-input').setAttribute('disabled', true);
+    if (highScore === 0) {
+      highScore = score;
+      document.querySelector('.highscore').textContent = highScore;
+    }
+    if (highScore < score) {
+      highScore = score;
+      document.querySelector('.highscore').textContent = highScore;
+    }
   } else if (guessNumber > secretNumber) {
     if (score > 1) {
       document.querySelector('.guess-message').textContent = 'Число меньше!';
