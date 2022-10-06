@@ -10,7 +10,6 @@ const newGameElement = document.querySelector('.again');
 const buttonCheckElement = document.querySelector('.check');
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-questionElement.textContent = secretNumber;
 
 let score = 20;
 scoreElement.textContent = score;
