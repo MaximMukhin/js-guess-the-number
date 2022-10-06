@@ -54,7 +54,7 @@ const setNumberLarger = () => {
 const setHighScore = () => {
   highScore = score;
   highScoreElement.textContent = highScore;
-}
+};
 
 newGameElement.addEventListener('click', () => setNewGame());
 
