@@ -1,69 +1,88 @@
 'use strict';
 
+const scoreElement = document.querySelector('.score');
 const highScoreElement = document.querySelector('.highscore');
+const guessMessageElement = document.querySelector('.guess-message');
+const numberInputElement = document.querySelector('.number-input');
+const bodyElement = document.querySelector('body');
+const questionElement = document.querySelector('.question');
+const newGameElement = document.querySelector('.again');
+const buttonCheckElement = document.querySelector('.check');
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-//document.querySelector('.question').textContent = secretNumber;
+questionElement.textContent = secretNumber;
 
 let score = 20;
-document.querySelector('.score').textContent = score;
+scoreElement.textContent = score;
+
 let highScore = 0;
 highScoreElement.textContent = highScore;
 
-const newGame = () => {};
-const gameWon = () => {};
-const gameLose = () => {};
-const numberLess = () => {};
-const numberLarger = () => {};
-
-document.querySelector('.again').addEventListener('click', function () {
+const setNewGame = () => {
   score = 20;
-  document.querySelector('.number-input').value = '';
-  document.querySelector('.score').textContent = 20;
+  numberInputElement.value = '';
+  scoreElement.textContent = 20;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
-  document.querySelector('.number-input').removeAttribute('disabled', true);
-  document.querySelector('body').style.backgroundColor = 'black';
-  document.querySelector('.question').textContent = '???';
+  numberInputElement.removeAttribute('disabled', true);
+  bodyElement.style.backgroundColor = 'black';
+  questionElement.textContent = '???';
   highScoreElement.textContent = highScore;
-});
+  guessMessageElement.textContent = 'Начни угадывать!';
+};
 
-document.querySelector('.check').addEventListener('click', function (event) {
-  const guessNumber = Number(document.querySelector('.number-input').value);
+const setGameWon = () => {
+  guessMessageElement.textContent = 'Правильно!';
+  bodyElement.style.backgroundColor = 'green';
+  questionElement.textContent = secretNumber;
+  numberInputElement.setAttribute('disabled', true);
+};
+const setGameLose = () => {
+  guessMessageElement.textContent = 'Проиграл!';
+  scoreElement.textContent = 0;
+  bodyElement.style.backgroundColor = 'red';
+};
+const setNumberLess = () => {
+  guessMessageElement.textContent = 'Число меньше!';
+  score--;
+  scoreElement.textContent = score;
+};
+const setNumberLarger = () => {
+  guessMessageElement.textContent = 'Число больше!';
+  score--;
+  scoreElement.textContent = score;
+};
+
+const setHighScore = () => {
+  highScore = score;
+  highScoreElement.textContent = highScore;
+}
+
+newGameElement.addEventListener('click', () => setNewGame());
+
+buttonCheckElement.addEventListener('click', () => {
+  const guessNumber = Number(numberInputElement.value);
 
   if (!guessNumber) {
-    document.querySelector('.guess-message').textContent = 'Введите число!';
+    guessMessageElement.textContent = 'Введите число!';
   } else if (guessNumber === secretNumber) {
-    document.querySelector('.guess-message').textContent = 'Правильно!';
-    document.querySelector('body').style.backgroundColor = 'green';
-    document.querySelector('.question').textContent = secretNumber;
-    document.querySelector('.number-input').setAttribute('disabled', true);
+    setGameWon();
     if (highScore === 0) {
-      highScore = score;
-      highScoreElement.textContent = highScore;
+      setHighScore();
     }
     if (highScore < score) {
-      highScore = score;
-      highScoreElement.textContent = highScore;
+      setHighScore();
     }
   } else if (guessNumber > secretNumber) {
     if (score > 1) {
-      document.querySelector('.guess-message').textContent = 'Число меньше!';
-      score--;
-      document.querySelector('.score').textContent = score;
+      setNumberLess();
     } else {
-      document.querySelector('.guess-message').textContent = 'Проиграл!';
-      document.querySelector('.score').textContent = 0;
-      document.querySelector('body').style.backgroundColor = 'red';
+      setGameLose();
     }
   } else if (guessNumber < secretNumber) {
     if (score > 1) {
-      document.querySelector('.guess-message').textContent = 'Число больше!';
-      score--;
-      document.querySelector('.score').textContent = score;
+      setNumberLarger();
     } else {
-      document.querySelector('.guess-message').textContent = 'Проиграл!';
-      document.querySelector('.score').textContent = 0;
-      document.querySelector('body').style.backgroundColor = 'red';
+      setGameLose();
     }
   }
 });
