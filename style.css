@@ -24,7 +24,7 @@ header {
   border-bottom: 7px solid #fff;
 }
 
-main {
+.main {
   height: 65vh;
   color: #fff;
   display: flex;
@@ -38,6 +38,7 @@ main {
   flex-direction: column;
   align-items: center;
   font-size: 2rem;
+  margin-top: 60px;
 }
 
 .right {
@@ -116,4 +117,17 @@ h1 {
 
 .label-score {
   margin-bottom: 2rem;
+}
+
+@media (max-width: 500px) {
+  .main {
+    flex-direction: column;
+    justify-content: normal;
+  }
+  .check {
+    margin-bottom: 20px;
+  }
+  .right {
+    text-align: center;
+  }
 }
