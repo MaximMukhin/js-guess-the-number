@@ -1,6 +1,4 @@
-'use strict';
-
-const highScoreElement = document.querySelector('.highscore');
+'use strict'; 
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 //document.querySelector('.question').textContent = secretNumber;
@@ -8,15 +6,9 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 document.querySelector('.score').textContent = score;
 let highScore = 0;
-highScoreElement.textContent = highScore;
+document.querySelector('.highscore').textContent = highScore;
 
-const newGame = () => {};
-const gameWon = () => {};
-const gameLose = () => {};
-const numberLess = () => {};
-const numberLarger = () => {};
-
-document.querySelector('.again').addEventListener('click', function () {
+const newGame = () => {
   score = 20;
   document.querySelector('.number-input').value = '';
   document.querySelector('.score').textContent = 20;
@@ -24,7 +16,27 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.number-input').removeAttribute('disabled', true);
   document.querySelector('body').style.backgroundColor = 'black';
   document.querySelector('.question').textContent = '???';
-  highScoreElement.textContent = highScore;
+  document.querySelector('.highscore').textContent = highScore;
+};
+
+const gameWon = () => {};
+
+const gameLose = () => {};
+
+const numberLess = () => {};
+
+const numberLarger = () => {};
+
+document.querySelector('.again').addEventListener('click', function () {
+  newGame();
+  /*   score = 20;
+  document.querySelector('.number-input').value = '';
+  document.querySelector('.score').textContent = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector('.number-input').removeAttribute('disabled', true);
+  document.querySelector('body').style.backgroundColor = 'black';
+  document.querySelector('.question').textContent = '???';
+  document.querySelector('.highscore').textContent = highScore; */
 });
 
 document.querySelector('.check').addEventListener('click', function (event) {
@@ -39,11 +51,11 @@ document.querySelector('.check').addEventListener('click', function (event) {
     document.querySelector('.number-input').setAttribute('disabled', true);
     if (highScore === 0) {
       highScore = score;
-      highScoreElement.textContent = highScore;
+      document.querySelector('.highscore').textContent = highScore;
     }
     if (highScore < score) {
       highScore = score;
-      highScoreElement.textContent = highScore;
+      document.querySelector('.highscore').textContent = highScore;
     }
   } else if (guessNumber > secretNumber) {
     if (score > 1) {
