@@ -1,4 +1,3 @@
-# js-hexlet
+# js-guess-the-number
 
-js-practice
-
+Игра угадай число!
